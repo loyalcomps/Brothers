@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="view_account_move_special_discount_form" model="ir.ui.view">
+            <field name="name">special.discount.account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='journal_div']" position="after">
+                    <field name="special_discount"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
