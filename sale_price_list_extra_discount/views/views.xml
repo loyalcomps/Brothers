@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="view_extra_discount_product_pricelist_item_form_inherited" model="ir.ui.view">
+            <field name="name">product.pricelist.item.form.inherit</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='pricelist_rule_base']" position="inside">
+                    <field name="extra_discount" attrs="{'invisible': [('parent.discount_policy', '!=', 'with_discount')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
