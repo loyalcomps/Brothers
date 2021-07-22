@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+
+        <record id="inherited_sale_order_form_view_lot_id" model="ir.ui.view">
+            <field name="name">inherited.sale.order.form.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page/field[@name='order_line']/form/group/group/field[@name='product_uom_readonly']"
+                       position="after">
+                    <field name="lot_id" options="{'no_create': True}"/>
+                    <field name="mrp"/>
+                </xpath>
+                <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_uom_qty']"
+                       position="before">
+                    <field name="lot_id" options="{'no_create': True}"/>
+                    <field name="mrp"/>
+                </xpath>
+                <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="context">
+                        {
+                            'partner_id': parent.partner_id,
+                            'quantity': product_uom_qty,
+                            'pricelist': parent.pricelist_id,
+                            'uom':product_uom,
+                            'company_id': parent.company_id,
+                            'default_lst_price': price_unit,
+                            'default_description_sale': name,
+                            'lot_id': lot_id
+                        }
+                    </attribute>
+                </xpath>
+                <xpath expr="//page/field[@name='order_line']/tree/field[@name='product_template_id']"
+                       position="attributes">
+                    <attribute name="context">
+                        {
+                            'partner_id': parent.partner_id,
+                            'quantity': product_uom_qty,
+                            'pricelist': parent.pricelist_id,
+                            'uom':product_uom,
+                            'company_id': parent.company_id,
+                            'default_list_price': price_unit,
+                            'default_description_sale': name,
+                            'lot_id': lot_id
+                        }
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
