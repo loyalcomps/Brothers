@@ -1,0 +1,78 @@
+<odoo>
+  <data>
+    <record id="view_product_stock_move_mrp" model="ir.ui.view">
+            <field name="name">product.template.lot.form.inherit</field>
+            <field name="model">product.template</field>
+<!--         <field name="inherit_id" ref="product.product_normal_form_view"/>-->
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[2]" position="after">
+                    <page string="MRP">
+                        <field name="mrp_ids" nolabel="1">
+                            <tree string="MRP" editable="1">
+                                <field name="sl_no" style="width:2% !important;text-align:center;"/>
+                                <field name="mrp" style="width:2% !important;text-align:right;"/>
+
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+<!--                <xpath expr="//page[@name='general_information']" position="after">-->
+<!--                     <group>-->
+<!--                                <group>-->
+
+<!--&lt;!&ndash;                  <page name="lot_mrp" string="MRP">&ndash;&gt;-->
+<!--                           <field name="mrp_ids" string="MRP">-->
+<!--                                <tree class="text-left"  string="MRP" editable="bottom">-->
+<!--                                    <field name="mrp" style="width:2% !important;" />-->
+<!--                                </tree>-->
+<!--                            </field>-->
+<!--&lt;!&ndash;                </page>&ndash;&gt;-->
+<!--                                </group>-->
+<!--                     </group>-->
+
+<!--                </xpath>-->
+            </field>
+        </record>
+
+
+       <record id="view_product_product_stock_move_mrp" model="ir.ui.view">
+            <field name="name">product.product.lot.form.inherit</field>
+            <field name="model">product.product</field>
+         <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+
+
+                 <xpath expr="//page[2]" position="after">
+                    <page string="MRP">
+                        <field name="mrp_ids" nolabel="1">
+                            <tree string="MRP" editable="1">
+                                <field name="sl_no" style="width:2% !important;text-align:center;"/>
+                                <field name="mrp" style="width:2% !important;text-align:right;"/>
+
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+<!--                <xpath expr="//page[@name='general_information']" position="after">-->
+
+<!--                      <group>-->
+<!--                                <group>-->
+
+<!--&lt;!&ndash;                            <page name="lot_mrp" string="MRP">&ndash;&gt;-->
+<!--                           <field name="mrp_ids" string="MRP">-->
+<!--                                <tree class="text-left" string="MRP" editable="bottom">-->
+<!--                                    <field name="mrp" style="width:2% !important;align:left;" />-->
+<!--                                </tree>-->
+<!--                            </field>-->
+
+<!--&lt;!&ndash;                        </page>&ndash;&gt;-->
+<!--                                </group>-->
+<!--                      </group>-->
+
+<!--                </xpath>-->
+            </field>
+        </record>
+
+  </data>
+</odoo>
