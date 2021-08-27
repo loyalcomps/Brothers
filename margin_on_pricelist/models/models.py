@@ -13,13 +13,17 @@ class PricelistItem(models.Model):
         price = super(PricelistItem, self)._compute_price(price, price_uom, product, quantity=quantity, partner=partner)
         self.ensure_one()
         if self.mrp_margin:
-            mrp_margin = (100 + (100 * (self.mrp_margin / 100))) / 100
-            price = price / mrp_margin
+            # mrp_margin = (100 + (100 * (self.mrp_margin / 100))) / 100
+            # price = price / mrp_margin
+            mrp_margin = (1 - (self.mrp_margin or 0.0) / 100.0)
+            price = price * mrp_margin
         if self.is_tax_margin:
             if product.taxes_id:
                 tax_per = product.taxes_id[0].amount
-                tax_margin = (100 + (100 * (tax_per / 100))) / 100
-                price = price / tax_margin
+                tax_margin = (1 - (tax_per or 0.0) / 100.0)
+                price = price * tax_margin
+                # tax_margin = (100 + (100 * (tax_per / 100))) / 100
+                # price = price / tax_margin
         return price
 
 
