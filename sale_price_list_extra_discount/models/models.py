@@ -22,10 +22,11 @@ class SaleOrder(models.Model):
                 quantity=line.product_uom_qty,
                 date=self.date_order,
                 pricelist=self.pricelist_id.id,
-                uom=line.product_uom.id
+                uom=line.product_uom.id,
+                mrp_value=line.mrp_value.id
             )
             product_context = dict(self.env.context, partner_id=self.partner_id.id,
-                                   date=self.date_order, uom=line.product_uom.id)
+                                   date=self.date_order, uom=line.product_uom.id,mrp_value = line.mrp_value.id)
             final_price, rule_id = self.pricelist_id.with_context(product_context).get_product_price_rule(
                 product or line.product_id, line.product_uom_qty or 1.0, self.partner_id)
             if rule_id and self.pricelist_id.discount_policy == 'with_discount':
@@ -62,7 +63,9 @@ class SaleOrderLine(models.Model):
             quantity=vals.get('product_uom_qty') or self.product_uom_qty,
             date=self.order_id.date_order,
             pricelist=self.order_id.pricelist_id.id,
-            uom=self.product_uom.id
+            uom=self.product_uom.id,
+            mrp_value=self.mrp_value.id,
+            fiscal_position = self.env.context.get('fiscal_position'),
         )
 
         final_price, rule_id = self.order_id.pricelist_id.with_context(product_context).get_product_price_rule(

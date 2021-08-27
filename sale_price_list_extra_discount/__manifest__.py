@@ -19,7 +19,7 @@
     'version': '14.0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'product', 'sale'],
+    'depends': ['base', 'product', 'sale','sale_lot_mrp'],
 
     # always loaded
     'data': [
