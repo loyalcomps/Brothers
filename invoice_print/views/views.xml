@@ -1,0 +1,327 @@
+<odoo>
+    <data>
+ <report
+    id="brothers_invoice_print"
+    model="account.move"
+    string="Invoice Print"
+    report_type="qweb-pdf"
+    name="invoice_print.brothers_invoice_template"
+    file="invoice_print.brothers_invoice_template"
+    />
+
+          <record id="brothers_paperformat_invoice_print_with_header" model="report.paperformat">
+            <field name="name">Brothers Invoice PRINT</field>
+            <field name="default" eval="True"/>
+<!--            <field name="format">A4</field>-->
+              <field name="format">custom</field>
+            <field name="page_height">297</field>
+            <field name="page_width">202</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">123</field>
+            <field name="margin_bottom">8</field>
+            <field name="margin_left">3</field>
+            <field name="margin_right">3</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">56</field>
+            <field name="dpi">90</field>
+        </record>
+
+
+        <record id="brothers_invoice_print" model="ir.actions.report">
+            <field name="pdf_watermark" type="base64" file="invoice_print/static/description/src/img/logo.jpg"/>
+            <field name="paperformat_id" ref="invoice_print.brothers_paperformat_invoice_print_with_header"/>
+        </record>
+
+
+        <odoo>
+            <data>
+                 <template id="invoice_layout_header_my">
+              <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"></t>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"></t>
+            </t>
+
+              <div style="font-size : 58px;width:100%" class="header">
+
+                                      <style type="text/css">
+<!--                        .Row {-->
+<!--                        display: table;-->
+<!--                        width: 100%; /*Optional*/-->
+<!--                        }-->
+
+
+                        @font-face {
+                        font-family: 'calibri';
+                         src: local('calibri'), local('calibri'),
+                        src: url('/invoice_print/static/src/fonts/calibri/Calibri.ttf') format('opentype');
+                        }
+
+                        @font-face {
+                        font-family: 'Countryside';
+                         src: local('Countryside'), local('Countryside'),
+                        src: url('/invoice_print/static/src/fonts/countryside-font/CountrysideTwo-r9WO.ttf') format('truetype');
+                        }
+
+                        @font-face {
+                        font-family: 'Arial';
+                        src: local('Arial'), local('Arial'),
+                        src: url(/invoice_print/static/src/fonts/arial.ttf') format('truetype');
+                        }
+                        @font-face {
+                        font-family: 'Verdana';
+                        src: url(/invoice_print/static/src/fonts/verdana.ttf') format('truetype');
+                        }
+
+                        .arabic-font {
+                        font-family: arial;
+                        }
+
+                        .en-font {
+                        font-family: arial;
+                        }
+                        tr,th, td {
+                    padding-left: 3px;
+                    padding-left: 3px;
+                    }
+<!--                        th, td {-->
+<!--                        padding: 3px;-->
+<!--                        }-->
+<!--                        tr{-->
+<!--                        page-break-inside: avoid;-->
+<!--                        }-->
+                        table {
+                        width: 100%;
+                        }
+                    </style>
+
+
+
+
+
+                 <div class="row">
+
+                     <div class="col-12" style="font-weight:bold;">
+
+                         <table border="1" style="width: 100%;padding:3px;padding-left:5px;border:1px solid black;border-right:1px solid black;border-collapse:collapse;font-size:18px;">
+                                <col style="width: 33%;"/>
+                                <col style="width: 34%;"/>
+                                <col style="width: 33%;"/>
+
+
+                            <tr>
+                                <td rowspan="2" class="en-font" style="padding:3px;padding-left:5px;border-right:1px solid black;border-bottom:1px solid black;">
+
+                                    <table style="width: 100%;">
+                                        <col style="width: 40%;"/>
+                                        <col style="width: 60%;"/>
+                                        <td class="en-font" align="left">
+                                        <img t-att-src="'/invoice_print/static/description/img/img.jpeg'" style="width:80%;height:20%;"/>
+                                        </td>
+                                        <td class="en-font" align="left" style="vertical-align:top;">
+                                            <span class="en-font" style="font-size:14px;">
+                                       <span class="en-font" style="font-weight:bold;">
+                                            <t t-if="o.company_id.name">
+                                             <t t-esc="o.company_id.name"/>
+                                            </t>
+                                       </span>
+
+                                       <br/>
+                                       <t t-if="o.company_id.street">
+                                           <t t-esc="o.company_id.street"/>,
+                                       </t>
+                                       <t t-if="o.company_id.street2">
+                                           <span t-field="o.company_id.street2"/>,
+                                       </t>
+
+                                       <t t-if="o.company_id.city">
+                                            <span t-field="o.company_id.city"/>,
+                                       </t>
+                                       <t t-if="o.company_id.state_id.name">
+                                           <span t-field="o.company_id.state_id.name"/>
+                                       </t>
+                                       <t t-if="o.company_id.zip">
+                                           <span t-field="o.company_id.zip"/>
+                                        </t>
+                                       <t t-if="o.company_id.country_id.name">
+                                           <span t-field="o.company_id.country_id.name"/>
+                                       </t>
+                                   </span>
+
+                                        </td>
+
+                                    </table>
+
+
+                                </td>
+                           <td rowspan="2" class="en-font" align="left" style="vertical-align:top;padding:3px;padding-left:5px;border-right:1px solid black;border-bottom:1px solid black;">
+                                   <span class="en-font" style="font-size:14px;">
+                                       Customer Care:<br/>
+                                               <div t-field="o.company_id.partner_id"
+                                t-options='{"widget": "contact", "fields": ["phone","mobile","website"], "no_marker": True, "phone_icons": True}'/>
+                                   </span>
+
+                           </td>
+
+                                 <td class="en-font" align="left" style="vertical-align:top;padding:3px;padding-left:5px;border-right:1px solid black;border-bottom:1px solid black;">
+                                   <span class="en-font" style="font-size:14px;">
+                                       GSTIN:<t t-esc="o.company_id.vat"/><br/>
+                                       FAASAI :
+                                   </span>
+
+                           </td>
+                            </tr>
+
+                             <tr>
+
+                                  <td class="en-font" align="center" style="vertical-align:middle;padding:3px;padding-left:5px;border-right:1px solid black;border-bottom:1px solid black;">
+                                   <span class="en-font" style="font-size:20px;">
+                                       Tax Invoice
+                                   </span>
+
+                           </td>
+
+                             </tr>
+                            <tr>
+                                <td class="en-font" align="left" style="padding:3px;padding-left:5px;border-right:1px solid black;">
+                                   <span class="en-font" style="font-size:14px;">
+                                       Billed To:<span class="en-font" style="font-weight:bold;">
+                                            <t t-if="o.partner_id.name">
+                                             <t t-esc="o.partner_id.name"/>
+                                            </t>
+                                       </span>
+
+                                       <br/>
+                                       <t t-if="o.partner_id.street">
+                                           <t t-esc="o.partner_id.street"/>,
+                                       </t>
+                                       <t t-if="o.partner_id.street2">
+                                           <span t-field="o.partner_id.street2"/>,
+                                       </t>
+
+                                       <t t-if="o.partner_id.city">
+                                            <span t-field="o.partner_id.city"/><br/>
+                                       </t>
+                                       <t t-if="o.partner_id.state_id.name">
+                                           <span t-field="o.partner_id.state_id.name"/>
+                                       </t>
+                                       <t t-if="o.partner_id.zip">
+                                           <span t-field="o.partner_id.zip"/>,
+                                        </t>
+                                       <t t-if="o.partner_id.country_id.name">
+                                           <span t-field="o.partner_id.country_id.name"/><br/>
+                                       </t>
+
+                                       GSTIN:<t t-if="o.partner_id.vat">
+                                           <span t-field="o.partner_id.vat"/>
+                                       </t>
+                                   </span>
+
+                                </td>
+                           <td class="en-font" align="left" style="padding:3px;padding-left:5px;border-right:1px solid black;">
+                                   <span class="en-font" style="font-size:14px;">
+                                 Shipped To:<span class="en-font" style="font-weight:bold;">
+                                            <t t-if="o.partner_shipping_id.name">
+                                             <t t-esc="o.partner_shipping_id.name"/>
+                                            </t>
+                                       </span>
+
+                                       <br/>
+                                       <t t-if="o.partner_shipping_id.street">
+                                           <t t-esc="o.partner_shipping_id.street"/>,
+                                       </t>
+                                       <t t-if="o.partner_shipping_id.street2">
+                                           <span t-field="o.partner_shipping_id.street2"/>,
+                                       </t>
+
+                                       <t t-if="o.partner_shipping_id.city">
+                                            <span t-field="o.partner_shipping_id.city"/>
+                                       </t><br/>
+                                       <t t-if="o.partner_shipping_id.state_id.name">
+                                           <span t-field="o.partner_shipping_id.state_id.name"/>,
+                                       </t>
+                                       <t t-if="o.partner_shipping_id.zip">
+                                           <span t-field="o.partner_shipping_id.zip"/>,
+                                        </t>
+                                       <t t-if="o.partner_shipping_id.country_id.name">
+                                           <span t-field="o.partner_shipping_id.country_id.name"/>
+                                       </t>
+
+                                       <br/>
+
+                                       GSTIN:<t t-if="o.partner_shipping_id.vat">
+                                           <span t-field="o.partner_shipping_id.vat"/>
+                                       </t>
+                                   </span>
+
+                           </td>
+
+                                 <td class="en-font" align="left" style="padding:3px;padding-left:5px;border-right:1px solid black;">
+                                   <span class="en-font" style="font-size:14px;">
+                                      <b>
+                                          Invoice No:<t t-esc="o.name"/><br/>
+                                          Invoice Date:
+                                          <t t-if="o.invoice_date">
+                                            <t t-esc="datetime.datetime.strptime(str(o.invoice_date), '%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                                            </t>
+                                          <br/>
+                                      </b>
+                                      Sale Order:
+
+                                        <t t-if="o.cpo_reference">
+                                      <t t-esc="o.cpo_reference"/>
+                                        </t>
+
+                                       <br/>
+                                       Delivery Date:
+
+                                         <t t-if="o.del_date">
+                                            <t t-esc="datetime.datetime.strptime(str(o.del_date), '%Y-%m-%d %H:%M:%S').strftime('%d/%m/%Y')"/>
+                                            </t>
+                                       <br/>
+                                        Payment Terms:
+                                       <t t-if="o.invoice_payment_term_id">
+                                      <t t-esc="o.invoice_payment_term_id.name"/>
+                                        </t><br/>
+                                        Eway Bill:<br/>
+                                   </span>
+
+                           </td>
+                            </tr>
+
+
+
+
+                        </table>
+
+
+
+                        </div>
+                                </div>
+
+
+            </div>
+
+                      <div class="footer">
+                          <div t-if="report_type == 'pdf'"  style="text-align:center;vertical-align:middle;font-size:14px;">
+                                Page <span class="page"/> of <span class="topage"/>
+                        </div>
+
+            </div>
+
+
+        </template>
+
+
+        <template id="brothers_invoice_print_external_layout">
+            <div class="article">
+                <t t-call="invoice_print.invoice_layout_header_my"/>
+                <t t-raw="0"/>
+            </div>
+        </template>
+
+            </data>
+        </odoo>
+    </data>
+</odoo>
