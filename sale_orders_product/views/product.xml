@@ -1,0 +1,68 @@
+<odoo>
+    <data>
+
+
+
+            <record id="sale_note_form_view" model="ir.ui.view">
+            <field name="name">Note</field>
+            <field name="model">sale.line.note</field>
+            <field name="arch" type="xml">
+                <form string="Note">
+                    <group>
+                        <field name="sale_id" invisible="1"/>
+                        <field name="product_id" invisible="1"/>
+                        <field name="sale_note"/>
+                    </group>
+            <footer>
+                <button type="object" name="confirm"
+                        string="Add Note" class="btn-primary"/>
+                <button special="cancel" string="Cancel" class="btn-default"/>
+            </footer>
+        </form>
+
+            </field>
+        </record>
+
+
+
+       <record id="action_form_for_note" model="ir.actions.act_window">
+        <field name="name">Note</field>
+        <field name="res_model">sale.line.note</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale_note_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+
+        <record id="sale_mrp_form_view" model="ir.ui.view">
+            <field name="name">MRP</field>
+            <field name="model">sale.line.note</field>
+            <field name="arch" type="xml">
+                 <form string="MRP">
+                    <group>
+                        <field name="sale_id" readonly="1"/>
+                        <field name="product_id" readonly="1" context="{'product_mrp':mrp_value}"/>
+                        <field name="mrp_value" context="{'show_mrp':1,'default_product_id':product_id}"/>
+<!--                         <field name="product_id" readonly="1" context="{'product_mrp':mrp_value}" invisible="1"/>-->
+                    </group>
+                    <footer>
+                        <button type="object" name="add_mrp_button"
+                                string="Add MRP" class="btn-primary"/>
+                        <button special="cancel" string="Cancel" class="btn-default"/>
+                    </footer>
+                 </form>
+            </field>
+        </record>
+
+
+
+       <record id="action_form_for_mrp" model="ir.actions.act_window">
+        <field name="name">MRP</field>
+        <field name="res_model">sale.line.note</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="sale_mrp_form_view"/>
+        <field name="target">new</field>
+    </record>
+
+    </data>
+</odoo>
