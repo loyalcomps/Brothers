@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+        <template id="brothers_invoice_template_document">
+
+                 <style type="text/css">
+                    .Row {
+                    display: table;
+                    width: 100%; /*Optional*/
+                    }
+
+                    @font-face {
+                    font-family: 'calibri';
+                    src: url('/brothers_invoice_print/static/src/fonts/calibri/Calibri.ttf') format('opentype');
+                    }
+
+                    @font-face {
+                    font-family: 'Times New Roman';
+                    src: local('Times New Roman'), local('Times New Roman'),
+                    url(/brothers_invoice_print/static/src/fonts/times_new_roman.ttf') format('ttf');
+                    }
+
+                    @font-face {
+                    font-family: 'Arial';
+                    src: local('Arial'), local('Arial'),
+                    url(/brothers_invoice_print/static/src/fonts/arial.ttf') format('truetype');
+                    }
+                    @font-face {
+                    font-family: 'Verdana';
+                    src: local('Verdana'), local('Verdana'),
+                    url(/brothers_invoice_print/static/src/fonts/verdana.ttf') format('ttf');
+                    }
+
+                    .arabic-font {
+                    font-family: arial;
+                    }
+
+                    .en-font {
+                    font-family: Verdana;
+                    }
+
+                    th, td {
+                    padding: 3px;
+                    }
+                    tr{
+                        page-break-inside: avoid;
+                        }
+                </style>
+<!--            <t t-call="brothers_invoice_print.brothers_print_external_layout">-->
+                        <t t-if="not o" t-set="o" t-value="doc"/>
+            <t t-if="not company">
+                <!-- Multicompany -->
+                <t t-if="company_id">
+                    <t t-set="company" t-value="company_id"/>
+                </t>
+                <t t-elif="o and 'company_id' in o">
+                    <t t-set="company" t-value="o.company_id.sudo()"/>
+                </t>
+                <t t-else="else">
+                    <t t-set="company" t-value="res_company"/>
+                </t>
+            </t>
+
+            <div class="header">
+                <style type="text/css">
+                    .Row {
+                    display: table;
+                    width: 100%; /*Optional*/
+                    }
+
+                    @font-face {
+                    font-family: 'calibri';
+                    src: url('/brothers_invoice_print/static/src/fonts/calibri/Calibri.ttf') format('opentype');
+                    }
+
+                    @font-face {
+                    font-family: 'Times New Roman';
+                    src: local('Times New Roman'), local('Times New Roman'),
+                    url(/brothers_invoice_print/static/src/fonts/times_new_roman.ttf') format('ttf');
+                    }
+
+                    @font-face {
+                    font-family: 'Arial';
+                    src: local('Arial'), local('Arial'),
+                    url(/brothers_invoice_print/static/src/fonts/arial.ttf') format('truetype');
+                    }
+                    @font-face {
+                    font-family: 'Verdana';
+                    src: local('Verdana'), local('Verdana'),
+                    url(/brothers_invoice_print/static/src/fonts/verdana.ttf') format('ttf');
+                    }
+
+                    .arabic-font {
+                    font-family: arial;
+                    }
+
+                    .en-font {
+                    font-family: Verdana;
+                    }
+                    .arabic_calibri{
+                    font-family: calibri;
+                    }
+                    th, td {
+                    padding: 3px;
+                    }
+                    tr{
+                        page-break-inside: avoid;
+                        }
+                </style>
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-2">
+                         <img t-att-src="'/brothers_invoice_print/static/description/img/img.jpeg'" style="margin-left: auto;margin-right: auto;height:110px;width:100px;"/>
+
+<!--                          <img style="margin-left: auto;margin-right: auto;width:550px;"-->
+<!--                             t-att-src="'/brothers_invoice_print/static/description/src/img/logo.png'"/>-->
+                    </div>
+
+                    <div class="col-9 text-left" style="font:12px lucida-console,sans-serif !important;">
+
+                        <b>
+                            <span class="en-font" t-field="o.company_id.partner_id" style="font-size:14px;"/>
+                        </b>
+                        <br/>
+                        <span class="en-font" t-field="o.company_id.partner_id.street" />
+                        <br/>
+                        <span class="en-font" t-field="o.company_id.partner_id.street2" />
+                        <br/>
+                        <t t-if="o.company_id.partner_id.city">
+                        <span class="en-font" t-field="o.company_id.partner_id.city"/>,
+                        </t>
+                        <t t-if="o.company_id.partner_id.state_id.name">
+                                <span class="en-font" t-field="o.company_id.partner_id.state_id.name"/>
+                        </t><br></br>
+                        <t t-if="o.company_id.partner_id.zip">
+                            <span class="en-font" t-field="o.company_id.partner_id.zip"/>,
+                        </t>
+                         <span class="en-font" t-field="o.company_id.partner_id.country_id" />
+                                    <br/>
+
+                                Tel:
+                                <span class="en-font" t-field="o.company_id.partner_id.phone"/>
+                                <br/>
+                                Email:
+                                <span class="en-font" t-field="o.company_id.partner_id.email"/>
+                                <br/>
+                               VAT #
+                                <span class="en-font" t-field="o.company_id.partner_id.vat"/>
+                                <br/>
+                    </div>
+                    <br/>
+                </div>
+                <div class="row">
+                     <div class="col-4" ></div>
+                     <div class="col-4" style="ont-weight:bold;">
+                        <div class="en-font"
+                             style="font-family: 'font-a-bold';float:center;text-align:center;text-decoration: underline; margin-top:-9px;font-size : 22px; font-weight: 900;text-weight:bold;"><b>Tax Invoice</b>
+                        </div>
+                     </div>
+                    <div class="col-4" ></div>
+                </div>
+
+
+
+                <div class="oe_structure"/>
+                <div>
+                    <table class="table table-sm" style=" table-layout:fixed;font-size: 11px;" >
+                        <thead>
+                            <tr>
+                                <th class="en-font" width="27px" style="text-align:center;font-size: 13px;background-color:#0e98d9 !important;border: 1px !important; border-style: solid !important; border-color: #fff; color:#fff !important;text-weight:bold; "><b>Billed To</b></th>
+                                <th class="en-font" width="27px" style="text-align:center;background-color:#0e98d9 !important;border: 1px !important; border-style: solid !important; border-color: #fff; color:#fff !important;text-weight:bold;font-size: 13px; "><b>Shipped To</b></th>
+                                <th width="14px" style="text-align:center;font-size: 13px;background-color:#0e98d9 !important;border: 1px !important; border-style: solid !important; border-color: #fff; color:#fff !important;text-weight:bold; ">
+                                    <span class="en-font" style="font-size: 13px;text-align: center;text-weight:bold;"><b>Invoice No</b></span>
+                                </th>
+
+                                 <th width="14px" style="text-align:center;font-size: 13px;background-color:#0e98d9 !important;border: 1px !important; border-style: solid !important; border-color: #fff; color:#fff !important;text-weight:bold; ">
+<!--                                    Invoice Date-->
+                                    <span class="en-font" style="font-size: 13px; text-align: center;text-weight:bold;"><b>Invoice Date</b></span>
+                                </th>
+
+                                 <td width="14px" class="en-font" style="text-align:center;font-size: 13px;background-color:#0e98d9 !important;border: 1px !important; border-style: solid !important; border-color: #fff; color:#fff !important;text-weight:bold;">
+                                   <b>Sale Order</b>
+                               </td>
+
+                            </tr>
+                       </thead>
+                       <tbody>
+                            <tr>
+                                <td rowspan="3" class="en-font" style="border: 1px !important; border-style: solid !important; border-color: #fff !important;">
+                                     <b style="font-size: 12px;text-weight:bold;">
+                                       <span class="en-font" style="font-size:12px;">
+                                      <span class="en-font" style="font-weight:bold;">
+                                            <t t-if="o.partner_id.name">
+                                             <t t-esc="o.partner_id.name"/>
+                                            </t>
+                                       </span>
+
+                                       <br/>
+                                       <t t-if="o.partner_id.street">
+                                           <t t-esc="o.partner_id.street"/>,
+                                       </t>
+                                       <t t-if="o.partner_id.street2">
+                                           <span t-field="o.partner_id.street2"/>,
+                                       </t>
+
+                                       <t t-if="o.partner_id.city">
+                                            <span t-field="o.partner_id.city"/><br/>
+                                       </t>
+                                       <t t-if="o.partner_id.state_id.name">
+                                           <span t-field="o.partner_id.state_id.name"/>
+                                       </t>
+                                       <t t-if="o.partner_id.zip">
+                                           <span t-field="o.partner_id.zip"/>,
+                                        </t>
+                                       <t t-if="o.partner_id.country_id.name">
+                                           <span t-field="o.partner_id.country_id.name"/><br/>
+                                       </t>
+
+                                       GSTIN:<t t-if="o.partner_id.vat">
+                                           <span t-field="o.partner_id.vat"/>
+                                       </t>
+                                   </span>
+                                     </b>
+                                </td>
+                                <td rowspan="3" class="en-font" style="border: 1px !important; border-style: solid !important; border-color: #fff !important;text-align:left;">
+                                    <b>
+                                        <span class="en-font">
+                                 <span class="en-font" style="font-weight:bold;">
+                                            <t t-if="o.partner_shipping_id.name">
+                                             <t t-esc="o.partner_shipping_id.name"/>
+                                            </t>
+                                       </span>
+
+                                       <br/>
+                                       <t t-if="o.partner_shipping_id.street">
+                                           <t t-esc="o.partner_shipping_id.street"/>,
+                                       </t>
+                                       <t t-if="o.partner_shipping_id.street2">
+                                           <span t-field="o.partner_shipping_id.street2"/>,
+                                       </t>
+
+                                       <t t-if="o.partner_shipping_id.city">
+                                            <span t-field="o.partner_shipping_id.city"/>
+                                       </t><br/>
+                                       <t t-if="o.partner_shipping_id.state_id.name">
+                                           <span t-field="o.partner_shipping_id.state_id.name"/>,
+                                       </t>
+                                       <t t-if="o.partner_shipping_id.zip">
+                                           <span t-field="o.partner_shipping_id.zip"/>,
+                                        </t>
+                                       <t t-if="o.partner_shipping_id.country_id.name">
+                                           <span t-field="o.partner_shipping_id.country_id.name"/>
+                                       </t>
+
+                                       <br/>
+
+                                       GSTIN:<t t-if="o.partner_shipping_id.vat">
+                                           <span t-field="o.partner_shipping_id.vat"/>
+                                       </t>
+                                   </span>
+                                    </b>
+
+                                </td>
+                                <td class="en-font" style="text-align:center;border: 1px !important; border-style: solid !important; border-color: #fff !important;">
+                                    <b><t t-esc="o.name"/></b>
+                                </td>
+                                <td class="en-font" style="text-align:center;border: 1px !important; border-style: solid !important; border-color: #fff !important;">
+                                    <b>
+                                         <t t-if="o.invoice_date">
+                                             <t t-esc="datetime.datetime.strptime(str(o.invoice_date), '%Y-%m-%d').strftime('%d/%m/%Y')"/>
+                                         </t>
+                                    </b>
+                                </td>
+                                 <td class="en-font" style="text-align:center;border: 1px !important; border-style: solid !important; border-color: #fff !important;">
+                                     <t t-if="o.cpo_reference">
+                                      <t t-esc="o.cpo_reference"/>
+                                     </t>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="en-font" width="27px" style="text-align:center;font-size: 13px;background-color:#0e98d9 !important;border: 1px !important; border-style: solid !important; border-color: #fff; color:#fff !important;text-weight:bold; "><b>Delivery Date</b></td>
+                                <td class="en-font" width="27px" style="text-align:center;background-color:#0e98d9 !important;border: 1px !important; border-style: solid !important; border-color: #fff; color:#fff !important;text-weight:bold;font-size: 13px; "><b>Payment Terms</b></td>
+                                <td class="en-font" width="14px" style="text-align:center;font-size: 13px;background-color:#0e98d9 !important;border: 1px !important; border-style: solid !important; border-color: #fff; color:#fff !important;text-weight:bold; ">
+                                    <span style="font-size: 13px;text-align: center;text-weight:bold;"><b>Eway Bill</b></span>
+                                </td>
+                            </tr>
+                           <tr>
+                               <td class="en-font" style="text-align:center;border: 1px !important; border-style: solid !important; border-color: #fff !important;">
+                                    <t t-if="o.del_date">
+                                        <t t-esc="datetime.datetime.strptime(str(o.del_date), '%Y-%m-%d %H:%M:%S').strftime('%d/%m/%Y')"/>
+                                    </t>
+                                </td>
+                                <td class="en-font" style="text-align:center;border: 1px !important; border-style: solid !important; border-color: #fff !important;">
+                                   <t t-if="o.invoice_payment_term_id">
+                                       <t t-esc="o.invoice_payment_term_id.name"/>
+                                   </t>
+                                </td>
+                                 <td class="en-font" style="text-align:center;border: 1px !important; border-style: solid !important; border-color: #fff !important;">
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="footer">
+                <div t-if="report_type == 'pdf'"  style="text-align:center;vertical-align:middle;font-size:14px;">
+                    Page <span class="page"/> of <span class="topage"/>
+                </div>
+            </div>
+            <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)"/>
+                    <div class="page">
+                         <style type="text/css">
+                            .Row {
+                            display: table;
+                            width: 100%; /*Optional*/
+                            }
+
+                            @font-face {
+                            font-family: 'calibri';
+                            src: url('/brothers_invoice_print/static/src/fonts/calibri/Calibri.ttf') format('opentype');
+                            }
+
+                            @font-face {
+                            font-family: 'Times New Roman';
+                            src: local('Times New Roman'), local('Times New Roman'),
+                            url(/brothers_invoice_print/static/src/fonts/times_new_roman.ttf') format('ttf');
+                            }
+
+                            @font-face {
+                            font-family: 'Arial';
+                            src: local('Arial'), local('Arial'),
+                            url(/brothers_invoice_print/static/src/fonts/arial.ttf') format('truetype');
+                            }
+                            @font-face {
+                            font-family: 'Verdana';
+                            src: local('Verdana'), local('Verdana'),
+                            url(/brothers_invoice_print/static/src/fonts/verdana.ttf') format('ttf');
+                            }
+
+                            .arabic-font {
+                            font-family: arial;
+                            }
+
+                            .en-font {
+                            font-family: Verdana;
+                            }
+                            .arabic_calibri{
+                            font-family: calibri;
+                            }
+                            th, td {
+                            padding: 3px;
+                            }
+                            tr{
+                                page-break-inside: avoid;
+                                }
+                        </style>
+
+            <div class="oe_structure"/>
+                <div>
+
+<!--        <div style="padding-top:20px;"></div>-->
+                    <!-- Is there a discount on at least one line? -->
+                    <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
+
+                    <table class="table table-sm" style="table-layout:fixed;font-size: 11px;" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th width="5px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important; color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">Sl</span></th>
+                                <th width="5px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">MRP</span></th>
+                                <th width="15px" class="en-font" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;vertical-align:middle;border:1px solid black;border-collapse:collapse;"><span class="en-font">Material Description</span></th>
+                                <th width="7px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">HSN Code</span></th>
+                                <th width="7px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">Batch</span></th>
+                                <th width="8px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">Exp</span></th>
+                                <th width="6px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">Qty</span></th>
+                                <th width="6px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">Free</span></th>
+                                <th width="8px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">Rate</span></th>
+                                <th width="6px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">Disc</span></th>
+                                <th width="10px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">Taxable Amount</span></th>
+                                <th width="6px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">GST %</span></th>
+                                <th width="11px" style="vertical-align:middle;text-weight:bold;background-color:#0e98d9 !important;color:#fff !important;text-align:center;border:1px solid black;border-collapse:collapse;"><span class="en-font">Net Amount</span></th>
+                            </tr>
+                        </thead>
+                         <tbody>
+
+                                    <t t-set="qty_amount" t-value="0" />
+                                    <t t-set="free_amount" t-value="0" />
+                                    <t t-set="taxable_amt" t-value="0" />
+                                    <t t-set="net_amt" t-value="0" />
+                                        <tr t-foreach="o.invoice_line_ids" t-as="l" style="padding:5px;">
+                                         <t t-if="not l.display_type">
+                                             <t t-if="not l.is_rounding_line">
+                                        <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                            <t t-esc="l_index+1"/>
+                                        </td>
+                                        <td class="en-font" style="padding:5px;text-align:left;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+
+                                        </td>
+                                        <td class="en-font" style="padding:5px;border:1px solid black;border-collapse:collapse;text-align:left;vertical-align:middle;">
+                                            <span class="en-font" style="text-align:left;vertical-align:middle;">
+                                                <t t-esc="l.product_id.name"/>
+                                            </span>
+                                        </td>
+                                        <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                            <span class="en-font" style="text-align:center;vertical-align:middle;">
+                                                <span t-esc="l.product_id.l10n_in_hsn_code"/>
+                                            </span>
+                                        </td>
+                                        <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+<!--                                         <span t-field="l.quantity"/>-->
+                                        </td>
+                                        <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+<!--                                            <span t-field="l.quantity"/>-->
+                                        </td>
+                                        <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                            <span t-esc="'{:.2f}'.format(l.quantity)"/>
+                                             <t t-set="qty_amount" t-value="qty_amount + l.quantity"/>
+                                        </td>
+
+                                              <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                            <span t-esc="'{:.2f}'.format(l.free_qty)"/>
+                                                  <t t-set="free_amount" t-value="free_amount + l.free_qty"/>
+                                        </td>
+                                        <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                               <t t-esc="'{:,.2f}'.format(l.price_unit)"/>
+<!--                                                <t t-esc="l.price_unit"/>-->
+                                        </td>
+
+                                         <td class="en-font" style="padding:5px;text-align:left;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+<!--                                                <t t-if="l.discount">-->
+<!--                                                    <t t-esc="'{:,.2f}'.format(l.discount)"/>-->
+<!--                                                </t>-->
+                                         </td>
+                                             <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                               <t t-esc="'{:,.2f}'.format(l.price_subtotal)"/>
+                                                 <t t-set="taxable_amt" t-value="taxable_amt + l.price_subtotal"/>
+<!---->
+                                        </td>
+
+                                              <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                               <t t-esc="(l.tax_ids.name)"/>
+<!---->
+                                        </td>
+                                         <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                               <t t-esc="'{:,.2f}'.format(l.price_total)"/>
+                                             <t t-set="net_amt" t-value="net_amt + l.price_total"/>
+
+<!--                                             <t t-esc="l.price_subtotal"/>-->
+                                        </td>
+                                         </t>
+                                         </t>
+
+                                         <t t-if="l.display_type == 'line_section'">
+
+
+                                             <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                            <t t-esc="l_index+1"/>
+                                        </td>
+
+                                        <td colspan="12" class="en-font" style="padding:5px;border:1px solid black;border-collapse:collapse;text-align:left;vertical-align:middle;">
+                                                <span class="en-font" style="text-align:left;vertical-align:middle;">
+                                                    <span t-field="l.name"/>
+                                                </span>
+
+
+                                        </td>
+
+                            </t>
+                            <t t-if="l.display_type == 'line_note'">
+                                <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                    <t t-esc="l_index+1"/>
+                                </td>
+                                <td colspan="12" class="en-font"  style="padding:5px;text-align:left;vertical-align:middle;border:1px solid black;border-collapse:collapse;">
+                                    <span class="en-font">
+                                        <span t-field="l.name"/>
+                                    </span>
+                                </td>
+                            </t>
+                         </tr>
+                                     <tr style="text-align:center; font-weight:bold;padding:5px;">
+                                        <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border : 1px solid black;border-collapse:collapse;"></td>
+                                         <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border : 1px solid black;border-collapse:collapse;"></td>
+                                         <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border : 1px solid black;border-collapse:collapse;
+                                            text-align:right;vertical-align:middle;">
+                                            Total
+                                        </td>
+                                        <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border : 1px solid black;border-collapse:collapse;"></td>
+
+                                        <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border : 1px solid black;border-collapse:collapse;"></td>
+                                        <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border : 1px solid black;border-collapse:collapse;"></td>
+                                        <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border : 1px solid black;border-collapse:collapse;">
+                                             <t t-esc="'{:,.2f}'.format(qty_amount)"/>
+                                        </td>
+                                        <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border : 1px solid black;border-collapse:collapse;">
+                                             <t t-esc="'{:,.2f}'.format(free_amount)"/>
+                                        </td>
+
+                                         <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border : 1px solid black;border-collapse:collapse;"></td>
+                                        <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border : 1px solid black;border-collapse:collapse;"></td>
+                                        <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border : 1px solid black;border-collapse:collapse;">
+                                            <t t-esc="'{:,.2f}'.format(taxable_amt)"/>
+                                        </td>
+                                        <td class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border : 1px solid black;border-collapse:collapse;"></td>
+                                        <td class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border : 1px solid black;border-collapse:collapse;">
+                                            <t t-esc="'{:,.2f}'.format(net_amt)"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="padding:5px;">
+                                        <td class="en-font" colspan="6" style="padding:5px;text-align:center;vertical-align:middle;border : 1px solid black;border-collapse:collapse;">
+
+
+                                            <table border="0" style="font-size: 12px;" width="100%;" cellspacing="0" borderspacing="0">
+                                                <col style="width: 20%;"/>
+                                                <col style="width: 12%;"/>
+                                                <col style="width: 20%;"/>
+                                                <col style="width: 12%;"/>
+                                                <col style="width: 26%;"/>
+                                <thead>
+
+                                    <tr style="padding:5px;text-align:center; font-weight:bold;line-height: 1;border:0;">
+                                        <th class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border:0;">SGST(%)</th>
+                                        <th class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border:0;">SGST</th>
+                                        <th class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border:0;">CGST(%)</th>
+                                        <th class="en-font" style="padding:5px;text-align:center;vertical-align:middle;border:0;">CGST</th>
+                                        <th class="en-font" style="padding:5px;text-align:right;vertical-align:middle;border:0;">Taxable amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o._tax_values()" t-as="m" style="padding:5px;border:0;">
+                                         <t t-if="m['sgst_tax_name']!=''">
+
+                                        <td class="en-font" style="padding:2px;text-align:left;vertical-align:middle;line-height: 1;border:0;">
+                                            <t t-if="m['sgst_tax_name']">
+                                                <t t-esc="m['sgst_tax_name']"/>
+                                            </t>
+                                        </td>
+                                         <td class="en-font" style="padding:2px;text-align:center;vertical-align:middle;line-height: 1;border:0;">
+                                            <t t-if="m['sgst_tax_name']">
+                                                <t t-if="m['amount']">
+                                                <t t-esc="m['amount']"/>
+                                                 </t>
+                                            </t>
+                                         </td>
+                                         <td class="en-font" style="padding:2px;text-align:left;vertical-align:middle;line-height: 1;border:0;">
+                                         <t t-if="m['sgst_tax_name']">
+                                                <t t-esc="m['sgst_tax_name'].replace('SGST','CGST')"/>
+                                            </t>
+
+                                         </td>
+                                         <td class="en-font" style="padding:2px;text-align:center;vertical-align:middle;line-height: 1;border:0;">
+
+                                          <t t-if="m['sgst_tax_name']">
+                                                <t t-if="m['amount']">
+                                                <t t-esc="m['amount']"/>
+                                                 </t>
+                                            </t>
+                                         </td>
+                                         <td class="en-font" style="padding:2px;text-align:right;vertical-align:middle;line-height: 1;border:0;">
+                                         <t t-if="m['sgst_tax_name']">
+                                             <t t-if="m['taxable']">
+                                                <t t-esc="m['taxable']"/>
+                                            </t>
+                                         </t>
+
+                                         </td>
+                                         </t>
+
+                                         <t t-if="not m['sgst_tax_name'] and not m['cgst_tax_name']">
+
+                                        <td class="en-font" style="text-align:left;vertical-align:middle;line-height: 1;border:0;">
+                                        </td>
+                                         <td class="en-font" style="text-align:center;vertical-align:middle;line-height: 1;border:0;">
+                                         </td>
+                                         <td class="en-font" style="text-align:left;vertical-align:middle;line-height: 1;border:0;">
+                                         </td>
+                                         <td class="en-font" style="text-align:center;vertical-align:middle;line-height: 1;border:0;">
+                                         </td>
+                                         <td class="en-font" style="ext-align:right;vertical-align:middle;line-height: 1;border:0;">
+                                         </td>
+                                         </t>
+
+
+                                    </tr>
+                                </tbody>
+                                            </table>
+
+                                        </td>
+
+
+
+
+                                        <td class="en-font" colspan="3" style="padding:5px;text-align:center;vertical-align:middle;"></td>
+
+                                         <td class="en-font" align="left" colspan="4" style="border-left:0;padding:5px;border-right: 1px solid black;border-top: 1px solid black;border-collapse:collapse;">
+                                            <b>
+                                                Special Discount :<span t-esc="'{:.2f}'.format(o.special_discount)"/><br/>
+                                                Company display (Amount): <br/>
+
+                                                Round Off:
+                                                 <t t-if="o.invoice_cash_rounding_id">
+                                                <t t-esc="'{0:,.2f}'.format(float(o.invoice_cash_rounding_id.rounding))"/>
+                                                </t>
+                                                <t t-if="not o.invoice_cash_rounding_id">
+                                                        0.00
+                                                </t>
+<!--                                                <span t-esc="'{:.2f}'.format(o.amount_total)"/>-->
+                                              </b><br/>
+
+                                         </td>
+
+                                    </tr>
+                                     <tr align="left" style="font-weight:bold;padding:5px;font-size:13px;">
+
+                                         <td class="en-font" align="left" colspan="9" style="padding:5px;border-left: 1px solid black;border: 1px solid black;border-collapse:collapse;">
+                                            <b> Total:
+                                                <t t-esc="o.currency_id.amount_to_text(o.amount_total)"/>
+                                              </b>
+
+                                         </td>
+
+                                          <td class="en-font" align="left" colspan="4" style="padding:5px;border-right: 1px solid black;border: 1px solid black;border-collapse:collapse;">
+                                            <b>
+                                               Grand Total: <span t-esc="'{:,.2f}'.format(o.amount_total)"/>
+                                              </b>
+                                         </td>
+                                    </tr>
+
+                             <tr style="font-weight:bold;padding:5px;font-size:13px;">
+                                 <td class="en-font" colspan="13" style="border:1px solid black;border-collapse:collapse;">
+<!--                                        <div class="row">-->
+<!--                    <div class="col-12">-->
+                        <table border="0" width="100%;" cellspacing="0" borderspacing="0" style="font-size:12px;padding:3px;border:0;">
+                            <col style="width: 25%;"/>
+                             <col style="width: 25%;"/>
+                             <col style="width: 25%;"/>
+                            <col style="width: 25%;"/>
+                        <tr>
+                            <td class="en-font" style="text-align:left;font-size:12px;text-weight:bold;border:0;padding:3px;">
+                        <b>Bank:<t t-esc="o.partner_bank_id.bank_id.name"/>
+
+                        </b>
+                            </td>
+                            <td class="en-font" style="padding:3px;border:0;text-align:center;font-size:12px;text-weight:bold;border:0;">
+                        <b>A/C No:<t t-esc="o.partner_bank_id.acc_number"/>
+
+                        </b>
+                            </td>
+               <td class="en-font" style="text-align:left;font-size:12px;text-weight:bold;border:0;padding:3px;">
+                        <b>Branch:
+                            <t t-esc="o.partner_bank_id.branch_name"/>
+
+                        </b>
+               </td>
+               <td class="en-font" style="text-align:left;font-size:12px;text-weight:bold;border:0;padding:3px;">
+                        <b>IFSC Code:<t t-esc="o.partner_bank_id.ifsc"/>
+
+                        </b>
+
+               </td>
+               </tr>
+            </table>
+        </td>
+    </tr>
+
+    <tr style="font-weight:bold;padding:5px;font-size:13px;">
+        <td class="en-font" colspan="13" style="border:1px solid black;border-collapse:collapse;">
+                    <table border="0" width="100%;" cellspacing="0" borderspacing="0" style="font-size:12px;padding:3px;width:100%;">
+                        <col style="width: 100%;"/>
+                        <tr style="border:0;">
+                            <td style="padding:3px;border:0;">
+                                <span class="en-font" style="font-size:12px;">
+                                    <b>Warning:</b> On the strength of the warranty issued to us by our suppliers we hereby certify that the food/foods mentioned in this invoice is/are warranted to be of
+                    <br/>
+                    the nature and quality which it/these purport/purports to be<br/>
+                        <b>Declaration:</b> We declare that this invoice shows the actual price of the goods described and that all particulars are true and correct<br/>
+                        Subject Kollam Jurisdiction
+
+                    </span>
+                            </td>
+                        </tr>
+                    </table>
+                                 </td>
+                             </tr>
+
+                             <tr style="font-weight:bold;padding:5px;font-size:13px;">
+                                 <td class="en-font" colspan="13" style="border:1px solid black;border-collapse:collapse;">
+                        <table border="0" width="100%;" cellspacing="0" borderspacing="0" style="font-size:12px;padding:3px;">
+                        <col style="width: 33%;"/>
+                             <col style="width: 34%;"/>
+                             <col style="width: 33%;"/>
+                        <tr style="border:0;">
+                            <td style="padding:3px;border:0;">
+                    <div class="en-font" style="text-align:left;font-size:12px;text-weight:bold;">
+                        <b>Received in good condition:
+
+                        </b>
+                </div>
+                            </td>
+                            <td style="padding:3px;border:0;">
+                    <div class="en-font" style="text-align:center;font-size:12px;text-weight:bold;">
+                        <b>Party Signature
+
+                        </b>
+                    </div>
+                            </td>
+               <td style="padding:3px;border:0;">
+                   <div class="en-font" style="text-align:left;font-size:12px;text-weight:bold;">
+                        <b>For : BROTHERS TRADE LINKS
+
+                        </b>
+                </div>
+
+                            </td>
+                        </tr>
+                        </table>
+<!--                    </div>-->
+
+<!--            </div>-->
+                                 </td>
+                             </tr>
+                                 </tbody>
+                    </table>
+
+                        </div>
+
+<!--            <div style="padding-top:10px;font-size: 11px;">-->
+<!--        </div>-->
+
+            <br/>
+
+                         <div class="row">
+                     <div class="col-12" >
+<!--                       <center> <div class="text-center" t-if="o.partner_id.qr" style="align-items: center;width: 250px; height: 250px;text-align:center;">-->
+<!--                         <p class="text-center" t-field="o.partner_id.qr" t-options='{"widget": "image"}' style="align-items: center;border: 1px solid lightgray; border-radius: 5px; padding: 2px;text-align:center;"/>-->
+<!--&lt;!&ndash;                            <p class="text-center" style="font-size: 7px; margin-top: -10px;">Scan QR with banking app.</p>&ndash;&gt;-->
+<!--                       </div></center>-->
+
+                         <center>
+<!--                             <t t-if="o.partner_id.qr">-->
+                             <img t-att-src="'data:image/png;base64,%s' % to_text(o.partner_id.qr)"
+                                             style="height:280px;width:280px;float:center;"/>
+<!--                             </t>-->
+                         </center>
+
+                     </div>
+                         </div>
+
+                    <br/>
+
+                </div>
+
+            </t>
+        </template>
+
+        <template id="brothers_invoice_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang"
+                       t-value="o.partner_id.lang"/>
+                    <t t-call="brothers_invoice_print.brothers_invoice_template_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+
