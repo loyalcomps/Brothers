@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+<!--        <record model="ir.ui.view" id="gst_eway_bill_view_stock_picking_studio_customization">-->
+<!--            <field name="name">gst.ewaybill.stock.picking.studio.customization</field>-->
+<!--            <field name="model">stock.picking</field>-->
+<!--            <field name="inherit_id" ref ="studio_customization.odoo_studio_stock_pi_ede47774-ade8-43ea-aa19-e542d0de535c"></field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//tree/field[@name='product_uom_id']" position="after">-->
+<!--                    <field name="price_unit"/>-->
+<!--                    <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]" />-->
+<!--                    <field name="currency_id"/>-->
+<!--                    <field name="price_subtotal" widget="monetary"/>-->
+<!--                    <field name="price_total" widget="monetary"/>-->
+<!--                    <field name="price_tax"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</odoo>

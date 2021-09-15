@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+	<data>
+        <record id="ewaybill_uqc_tree" model="ir.ui.view">
+            <field name="name">ewaybill.uqc.tree</field>
+            <field name="model">ewaybill.uqc</field>
+            <field name="arch" type="xml">
+                <tree string="Unit Quantity Code" editable="bottom">
+                    <field name="name" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user"/>
+                    <field name="code" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user"/>
+                    <field name="uom" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

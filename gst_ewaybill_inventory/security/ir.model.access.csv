@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gst_ewaybill_inventory_gst_ewaybill_inventory,gst_ewaybill_inventory.gst_ewaybill_inventory,model_gst_ewaybill_inventory_gst_ewaybill_inventory,base.group_user,1,1,1,1

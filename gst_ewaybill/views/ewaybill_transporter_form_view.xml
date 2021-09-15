@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+	<data>
+		<record id="ewaybill_tool_form" model="ir.ui.view">
+            <field name="name">ewaybill.transporter.form</field>
+            <field name="model">ewaybill.transporter</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="E-Way Bill" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user">
+                    <sheet>
+                        <h1>
+                            <field name="name" placeholder="Transporter Name" class="oe_inline"/>
+                        </h1>
+                        <separator string="Transporter Details"/>
+                        <group>
+                            <group col="2">
+                                <field name="transportation_mode" required="1"/>
+                                <field name="transporter_id" placeholder="Transporter ID" attrs="{'required': [('transportation_mode', '=', '1')]}"/>
+                                <field name="email_id"/>
+                            </group>
+                            <group>
+                                <field name="transporter_date" placeholder="11/04/2018" required="1"/>
+                                <field name="transporter_doc_no" placeholder="123456"  attrs="{'required': [('transportation_mode', '!=', '1')]}"/>
+                                <field name="mobile_no"/>
+                            </group>
+                        </group>
+                        <separator string="Address"/>
+                        <group>
+                            <group>
+                                <field name="transporter_address1" placeholder="Street..."/>
+                                <field name="transporter_address2" placeholder="Street2..."/>
+                                <field name="state_id" required="1"/>
+                            </group>
+                            <group>
+                                <field name="city" placeholder="City"/>
+                                <field name="zip" placeholder="151515" required="1"/>
+                                <field name="country_id" required="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

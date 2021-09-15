@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="consolidated_ewaybill_form_internal_trans" model="ir.ui.view">
+            <field name="name">consolidated.ewaybill</field>
+            <field name="model">consolidated.ewaybill</field>
+            <field name="inherit_id" ref="gst_ewaybill.consolidated_ewaybill_form"></field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//group[1]/field[@name='trans_id']" position="after">
+                    <field name="intrnl_trans" invisible="1"/>
+                    <field name="company_id" invisible="1"/>
+                </xpath>
+                <xpath expr="//group[3]/field[@name='ewaybill_order_ids']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('intrnl_trans','=',True)]}</attribute>
+                </xpath>
+
+                <xpath expr="//group[3]" position="after">
+                    <group string="Internal Transfer" attrs="{'invisible':[('intrnl_trans','=',False)]}">
+
+                        <field name="ewaybill_stock_ids" nolabel="1"
+                               domain="[('ewaybill_no','!=',''), ('generate_ewaybill','!=',False)]"
+                         attrs="{'invisible':[('intrnl_trans','=',False)]}">
+                            <tree>
+                                <field name="ewaybill_no"/>
+                                <field name="date"/>
+                                <!--<field name="user_id"/>-->
+                                <field name="name"/>
+                                <field name="amount_total"/>
+                                <field name="eway_source"/>
+                                <field name="eway_destination"/>
+                                <field name="state" invisible="1"/>
+                            </tree>
+                        </field>
+
+                    </group>
+
+
+                </xpath>
+                <xpath expr="//footer/button[@name='printBill']" position="after">
+                    <button name="printBillInternalTrans" class="btn-success" icon="fa-code" string="Print" type="object"
+                            attrs="{'invisible':[('intrnl_trans','=',False)]}"/>
+                </xpath>
+
+                <xpath expr="//footer/button[@name='printBill']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('intrnl_trans','=',True)]}</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

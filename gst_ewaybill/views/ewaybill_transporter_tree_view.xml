@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+	<data>
+        <record id="ewaybill_transporter_tree" model="ir.ui.view">
+            <field name="name">ewaybill.transporter.tree</field>
+            <field name="model">ewaybill.transporter</field>
+            <field name="arch" type="xml">
+                <tree string="Ewaybill Transporter">
+                    <field name="name" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user"/>
+                    <field name="transporter_id" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user"/>
+                    <field name="mobile_no" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user"/>
+                    <field name="city" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user"/>
+                    <field name="state_id" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

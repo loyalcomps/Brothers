@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inherit_wk_view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <field name="generate_ewaybill"/>
+                </field>
+				<xpath expr="//notebook" position="inside">
+					<page string="E-Way Bill Details" attrs="{'invisible': [('generate_ewaybill', '=', False)]}" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user">
+                        <separator string="Transportation Details"/>
+                        <group>
+                            <group>
+                                <field name="eway_source"/>
+                                <field name="supply_type" attrs="{'required': [('generate_ewaybill', '=', True)]}"/>
+                                <field name="transportation_mode" attrs="{'required': [('generate_ewaybill', '=', True)]}"/>
+                                <field name="trans_type" attrs="{'required': [('generate_ewaybill', '=', True)]}"/>
+                                <field name="mainHsnCode" attrs="{'required': [('generate_ewaybill', '=', True)]}"/>
+                                <field name="transportation_distance" attrs="{'required': [('generate_ewaybill', '=', True)]}"/>
+
+                                <field name="invoice_id_eway" />
+                            </group>
+                            <group>
+                                <field name="eway_destination"/>
+                                <field name="sub_supply_type"/>
+                                <field name="transporter_id" options="{'no_create': True}" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user"/>
+                                <field name="vehicle_type"/>
+                                <field name="trans_id"/>
+                            </group>
+                            <group col="4" colspan="1">
+                                <field name="vehicle_no" attrs="{'required': [('transportation_mode', '=', '1'), ('trans_id', '=', '')], 'readonly': [('ewaybill_no', 'not in', ['', False])]}"/>
+                                <button name="updateVehicleNo" string=" Update Vehicle No." type="object" class="btn-success" icon="fa-car" attrs="{'invisible': [('ewaybill_no', 'in', ['', False])]}"/>
+                            </group>
+                        </group>
+                        <separator string="E-Way Bill"/>
+                        <group>
+                            <field name="ewaybill_no"/>
+                        </group>
+                    </page>
+				</xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

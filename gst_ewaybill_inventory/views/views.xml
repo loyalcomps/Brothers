@@ -1,0 +1,114 @@
+<odoo>
+  <data>
+    <!-- Ewaybill fields to stock picking view-->
+    <record model="ir.ui.view" id="gst_eway_bill_view_picking_form">
+      <field name="name">Stock Picking E - Way Bill</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref ="stock.view_picking_form"></field>
+      <field name="arch" type="xml">
+
+
+
+        <xpath expr="//sheet/notebook/page/field[@name='move_line_ids_without_package']" position="after">
+          <group class="oe_subtotal_footer oe_right">
+            <field name="currency_id" invisible="1"/>
+            <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+            <div class="oe_subtotal_footer_separator oe_inline">
+              <label for="amount_total"/>
+            </div>
+            <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          </group>
+        </xpath>
+
+        <xpath expr="//sheet/notebook/page/group/group/field[@name='company_id']" position="after">
+          <field name="fiscal_position_id" options="{'no_create': True}"/>
+        </xpath>
+
+        <field name="origin" position="after">
+
+          <field name="generate_ewaybill" attrs="{'invisible': [('picking_type_code', '!=', 'internal')]}"/>
+        </field>
+        <xpath expr="//notebook" position="inside">
+          <page string="E-Way Bill Details" attrs="{'invisible': [('generate_ewaybill', '=', False)]}" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user">
+            <separator string="Transportation Details"/>
+            <separator string="E-Way Bill"/>
+            <group>
+              <group>
+                <field name="eway_source"/>
+                <field name="supply_type" attrs="{'required': [('generate_ewaybill', '=', True)]}"/>
+                <field name="transportation_mode" attrs="{'required': [('generate_ewaybill', '=', True)]}"/>
+                <field name="trans_type" attrs="{'required': [('generate_ewaybill', '=', True)]}"/>
+                <field name="mainHsnCode" />
+                <field name = "vehicle_type" attrs="{'required': [('transportation_mode', '=', '1')]}"/>
+                <field name="transportation_distance" attrs="{'required': [('generate_ewaybill', '=', True)]}"/>
+              </group>
+              <group>
+                <field name="eway_destination"/>
+                <field name="sub_supply_type"/>
+                  <field name="sub_supply_desc" attrs="{'required': [('sub_supply_type', '=', '8')]}"/>
+                <field name="transporter_id" options="{'no_create': True}" groups="gst_ewaybill.group_gst_ewaybill_admin,gst_ewaybill.group_gst_ewaybill_user"/>
+                <field name="trans_id"/>
+              </group>
+              <group col="4" colspan="1">
+                <field name="vehicle_no" attrs="{'required': [('transportation_mode', '=', '1'), ('trans_id', '=', '')], 'readonly': [('ewaybill_no', 'not in', ['', False])]}"/>
+                <button name="updateVehicleNo" string=" Update Vehicle No." type="object" class="btn-success" icon="fa-car" attrs="{'invisible': [('ewaybill_no', 'in', ['', False])]}"
+                        context="{'sale_internal':'internal'}"/>
+              </group>
+            </group>
+            <group>
+              <field name="ewaybill_no"/>
+            </group>
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+    Product related fields to move line
+    <record model="ir.ui.view" id="gst_eway_bill_view_stock_move_line_detailed_operation_tree">
+      <field name="name">gst.ewaybill.stock.move.line.operations.tree</field>
+      <field name="model">stock.move.line</field>
+      <field name="inherit_id" ref ="stock.view_stock_move_line_detailed_operation_tree"></field>
+      <field name="arch" type="xml">
+        <xpath expr="//tree/field[@name='product_uom_id']" position="after">
+          <field name="price_unit"/>
+          <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]" />
+          <field name="currency_id"/>
+          <field name="price_subtotal" widget="monetary"/>
+          <field name="price_total" widget="monetary"/>
+          <field name="price_tax"/>
+        </xpath>
+      </field>
+    </record>
+
+<!--    <record model="ir.ui.view" id="gst_eway_bill_view_stock_picking_studio_customization">-->
+<!--      <field name="name">gst.ewaybill.stock.picking.studio.customization</field>-->
+<!--      <field name="model">stock.picking</field>-->
+<!--      <field name="inherit_id" ref ="studio_customization.odoo_studio_stock_pi_ede47774-ade8-43ea-aa19-e542d0de535c"></field>-->
+<!--      <field name="arch" type="xml">-->
+<!--        <xpath expr="//tree/field[@name='product_uom_id']" position="after">-->
+<!--          <field name="price_unit"/>-->
+<!--          <field name="taxes_id" widget="many2many_tags" domain="[('type_tax_use','=','purchase')]" />-->
+<!--          <field name="currency_id"/>-->
+<!--          <field name="price_subtotal" widget="monetary"/>-->
+<!--          <field name="price_total" widget="monetary"/>-->
+<!--          <field name="price_tax"/>-->
+<!--        </xpath>-->
+<!--      </field>-->
+<!--    </record>-->
+
+    <record id ="inherit_gst_ewaybill_sale_order_form" model="ir.ui.view">
+      <field name="name">Sale order</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="gst_ewaybill.inherit_wk_view_order_form"></field>
+      <field name="arch" type="xml">
+        <xpath expr="//button[@name='updateVehicleNo']" position="replace">
+          <button name="updateVehicleNo" string=" Update Vehicle No." type="object" class="btn-success" icon="fa-car" attrs="{'invisible': [('ewaybill_no', 'in', ['', False])]}"
+                  context="{'sale_internal':'sale'}"/>
+        </xpath>
+      </field>
+    </record>
+
+
+  </data>
+</odoo>

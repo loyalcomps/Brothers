@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ewaybill_transporter_user,GST E-Way Bill,model_ewaybill_transporter,group_gst_ewaybill_user,1,0,0,0
+access_ewaybill_uqc_user,Unit Quantity Code,model_ewaybill_uqc,group_gst_ewaybill_user,1,0,0,0
+
+access_ewaybill_transporter_manager,GST E-Way Bill Manager,model_ewaybill_transporter,group_gst_ewaybill_admin,1,1,1,1
+access_ewaybill_uqc_manager,Unit Quantity Code Manager,model_ewaybill_uqc,group_gst_ewaybill_admin,1,1,1,1

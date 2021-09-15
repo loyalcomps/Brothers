@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="eway_action_orders_intrnl_trans" model="ir.actions.act_window">
+            <field name="name">Ewaybill Transfers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+            <field name="context">{}</field>
+            <field name="domain">[('generate_ewaybill','=',True)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to create a new transfer.
+                </p>
+                <p>
+                    You can either do it immediately or mark it as Todo for future processing. Use your scanner to validate the transferred quantity quicker.
+                </p>
+            </field>
+        </record>
+
+        <record id="eway_action_rest_orders_intrnl_trans" model="ir.actions.act_window">
+            <field name="name">All Transfers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.picking</field>
+            <field name="view_mode">tree,kanban,form,calendar</field>
+
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click here to create a new transfer.
+                </p>
+                <p>
+                    You can either do it immediately or mark it as Todo for future processing. Use your scanner to validate the transferred quantity quicker.
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_gsteway_rest_orders_intrnl_trans" name="All Transfers" parent="gst_ewaybill.gsteway_master_parent_menu"
+                  action="eway_action_rest_orders_intrnl_trans" sequence="3"/>
+        <menuitem id="menu_gsteway_orders_intrnl_trans" name="Ewaybill Transfers" parent="gst_ewaybill.gsteway_master_parent_menu"
+                  action="eway_action_orders_intrnl_trans" sequence="4"/>
+    </data>
+</odoo>

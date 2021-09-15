@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<odoo>
+	<data>
+
+		<menuitem id="gsteway_parent_menu" name="GST Ewaybill" groups="account.group_account_invoice,gst_ewaybill.group_gst_ewaybill_admin"/>
+		    <menuitem id="gsteway_master_parent_menu" name="My Masters" parent="gsteway_parent_menu" groups="account.group_account_invoice" sequence="1"/>
+                 <menuitem  id="menu_gsteway_rest_orders" name="Orders" parent="gsteway_master_parent_menu" action="eway_action_rest_orders" sequence="1"/>
+                 <menuitem  id="menu_gsteway_orders" name="E-Way Bill Orders" parent="gsteway_master_parent_menu" action="eway_action_orders" sequence="2"/>
+		    <menuitem id="gsteway_master_data_parent_menu" name="Master Data" parent="gsteway_parent_menu" groups="account.group_account_invoice" sequence="1"/>
+                <menuitem  id="menu_gsteway_transporter" name="Transporters" parent="gsteway_master_data_parent_menu" action="gsteway_transporters_action" sequence="1"/>
+                <menuitem  id="menu_gsteway_clients" name="Clients" parent="gsteway_master_data_parent_menu" action="base.action_partner_form" sequence="2"/>
+                <menuitem  id="menu_gsteway_suppliers" name="Suppliers" parent="gsteway_master_data_parent_menu" action="base.action_partner_supplier_form" sequence="3"/>
+                <menuitem  id="menu_gsteway_product" name="Product" parent="gsteway_master_data_parent_menu" action="product.product_template_action" sequence="4"/>
+
+            <menuitem  id="menu_gsteway_configuration" name="Configuration" parent="gsteway_parent_menu" sequence="2"/>
+                <menuitem  id="menu_gsteway_uom_code" name="Unit Quantity Code" parent="menu_gsteway_configuration" action="ewaybill_uqc_action" sequence="2"/>
+    </data>
+</odoo>
