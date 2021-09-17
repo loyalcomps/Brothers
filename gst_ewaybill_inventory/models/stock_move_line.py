@@ -123,7 +123,6 @@ class StockMoveLine(models.Model):
 
     @api.onchange('product_id', 'product_uom_id')
     def onchange_product_id(self):
-        res = super(StockMoveLine, self).onchange_product_id()
         if self.product_id:
             price_unit = self.product_id.lst_price if self.picking_id.picking_type_code in ['internal',
                                                                          'outgoing'] else self.product_id.standard_price
@@ -134,7 +133,6 @@ class StockMoveLine(models.Model):
             # self.update({'price_unit': price_unit, 'taxes_id': taxes_id, })
             self._compute_tax_id()
             self.update({'price_unit': price_unit})
-        return res
 
 
 

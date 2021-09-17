@@ -19,7 +19,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'stock', 'gst_ewaybill', 'web_studio'],
+    'depends': ['base', 'stock', 'gst_ewaybill'],
 
     # always loaded
     'data': [
@@ -32,6 +32,9 @@
     ],
     # only loaded in demonstration mode
     'demo': [
-        'demo/demo.xml',
+        # 'demo/demo.xml',
     ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
 }
