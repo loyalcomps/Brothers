@@ -24,6 +24,7 @@ listedReasons = [
 class VehicleNoUpdation(models.TransientModel):
     _name = "vehicle.no.updation"
 
+
     vehicle_no = fields.Char(
         string='Vehicle No',
         help="Vehicle No of transporter"

@@ -2,5 +2,11 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_ewaybill_transporter_user,GST E-Way Bill,model_ewaybill_transporter,group_gst_ewaybill_user,1,0,0,0
 access_ewaybill_uqc_user,Unit Quantity Code,model_ewaybill_uqc,group_gst_ewaybill_user,1,0,0,0
 
+access_consolidated_ewaybill_user,consolidated.ewaybill.user,model_consolidated_ewaybill,group_gst_ewaybill_user,1,0,0,0
+access_vehicle_no_updation_user,vehicle.no.updation.user,model_vehicle_no_updation,group_gst_ewaybill_user,1,0,0,0
+
 access_ewaybill_transporter_manager,GST E-Way Bill Manager,model_ewaybill_transporter,group_gst_ewaybill_admin,1,1,1,1
 access_ewaybill_uqc_manager,Unit Quantity Code Manager,model_ewaybill_uqc,group_gst_ewaybill_admin,1,1,1,1
+
+access_consolidated_ewaybil_manager,consolidated.ewaybill.manager,model_consolidated_ewaybill,group_gst_ewaybill_admin,1,1,1,1
+access_vehicle_no_updation_manager,vehicle.no.updation.manager,model_vehicle_no_updation,group_gst_ewaybill_admin,1,1,1,1

@@ -6,6 +6,7 @@ from datetime import datetime
 class EwaybillTransporter(models.Model):
     _name = "ewaybill.transporter"
     _inherit = ['mail.thread']
+    _description = 'Eway Bill Transporter'
 
     name = fields.Char(
         string='Transporter Name',
